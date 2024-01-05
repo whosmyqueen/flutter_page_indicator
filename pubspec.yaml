@@ -9,8 +9,8 @@ dependencies:
     sdk: flutter
 
 environment:
-  sdk: ">=2.0.0-dev.48.0 <3.0.0"
-  flutter: ">=0.1.4 <3.0.0"
+  sdk: '>=3.2.3 <4.0.0'
+  flutter: '>=3.3.0'
 
 
 dev_dependencies:

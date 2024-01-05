@@ -1,7 +1,6 @@
 library flutter_page_indicator;
 
 import 'package:flutter/material.dart';
-import 'package:flutter/widgets.dart';
 
 class WarmPainter extends BasePainter {
   WarmPainter(PageIndicator widget, double page, int index, Paint paint)
@@ -123,12 +122,12 @@ class ScalePainter extends BasePainter {
         : radius + ((index + 1) * (size + space));
 
     double progress = page - index;
-    _paint.color = Color.lerp(widget.activeColor, widget.color, progress);
+    _paint.color = Color.lerp(widget.activeColor, widget.color, progress)!;
     //last
     canvas.drawCircle(new Offset(radius + (index * (size + space)), radius),
         lerp(radius, radius * widget.scale, progress), _paint);
     //first
-    _paint.color = Color.lerp(widget.color, widget.activeColor, progress);
+    _paint.color = Color.lerp(widget.color, widget.activeColor, progress)!;
     canvas.drawCircle(new Offset(secondOffset, radius),
         lerp(radius * widget.scale, radius, progress), _paint);
   }
@@ -154,12 +153,12 @@ class ColorPainter extends BasePainter {
         ? radius
         : radius + ((index + 1) * (size + space));
 
-    _paint.color = Color.lerp(widget.activeColor, widget.color, progress);
+    _paint.color = Color.lerp(widget.activeColor, widget.color, progress)!;
     //left
     canvas.drawCircle(
         new Offset(radius + (index * (size + space)), radius), radius, _paint);
     //right
-    _paint.color = Color.lerp(widget.color, widget.activeColor, progress);
+    _paint.color = Color.lerp(widget.color, widget.activeColor, progress)!;
     canvas.drawCircle(new Offset(secondOffset, radius), radius, _paint);
   }
 }
@@ -181,6 +180,7 @@ abstract class BasePainter extends CustomPainter {
   bool _shouldSkip(int index) {
     return false;
   }
+
   //double secondOffset = index == widget.count-1 ? radius : radius + ((index + 1) * (size + space));
 
   @override
@@ -330,20 +330,18 @@ class PageIndicator extends StatefulWidget {
   final double activeSize;
 
   PageIndicator(
-      {Key key,
-      this.size: 20.0,
-      this.space: 5.0,
-      this.count,
-      this.activeSize: 20.0,
-      this.controller,
-      this.color: Colors.white30,
-      this.layout: PageIndicatorLayout.SLIDE,
-      this.activeColor: Colors.white,
-      this.scale: 0.6,
-      this.dropHeight: 20.0})
-      : assert(count != null),
-        assert(controller != null),
-        super(key: key);
+      {required Key key,
+      this.size = 20.0,
+      this.space = 5.0,
+      required this.count,
+      this.activeSize = 20.0,
+      required this.controller,
+      this.color = Colors.white30,
+      this.layout = PageIndicatorLayout.SLIDE,
+      this.activeColor = Colors.white,
+      this.scale = 0.6,
+      this.dropHeight = 20.0})
+      : super(key: key);
 
   @override
   State<StatefulWidget> createState() {
